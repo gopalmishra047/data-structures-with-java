@@ -1,11 +1,11 @@
 package dynamicarray;
 
 import java.util.Iterator;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 class DynamicArrayTest {
 
@@ -51,6 +51,12 @@ class DynamicArrayTest {
     assertThat(array.size()).isEqualTo(4);
     assertThat(array.indexOf(9)).isEqualTo(-1);
     assertThat(array.indexOf(7)).isEqualTo(3);
+  }
+
+  @Test
+  void contains() {
+    assertThat(array.contains(4)).isTrue();
+    assertThat(array.contains(20)).isFalse();
   }
 
   @Test

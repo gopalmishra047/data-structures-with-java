@@ -47,6 +47,10 @@ class Array<T> implements Iterable<T> {
     return true;
   }
 
+  public boolean contains(T element) {
+    return indexOf(element) == 1;
+  }
+
   public int indexOf(T element) {
     for (int i = 0; i < length; i++) {
       if (element == null) {
