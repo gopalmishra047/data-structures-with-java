@@ -60,12 +60,19 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   }
 
   public void addFirst(T element) {
+    // 1. create a new node and initialise both previous and next pointers as null
+    Node<T> newNode = new Node<>(element, null, null);
     if (isEmpty()) {
-      head = tail = new Node<>(element, null, null);
+      head = tail = newNode;
     } else {
-      head.prev = new Node<>(element, null, head);
-      head = head.prev;
+      // 2. Update the next/right pointer of the new node to point to the current head node.
+      newNode.next = head;
+      // 3. Update the current head left/prev pointer to point to the new node;
+      head.prev = newNode;
+      // 4. Make the new node as updated head.
+      head = newNode;
     }
+    // 5. Increase the size of the list by 1.
     size++;
   }
 
@@ -97,25 +104,22 @@ public class DoublyLinkedList<T> implements Iterable<T> {
     if (isEmpty()) {
       throw new RuntimeException("Empty list !");
     }
-    T data = head.data; // data to be removed;
+    T toRemove = head.data; // data to be removed;
     head = head.next; // make the element next to current head as new head
     head.prev = null; // set the element previous to head as null since it's head
-    if (isEmpty()) {
-      tail = null;
-    }
-    --size;
-    return data;
+    size--;
+    return toRemove;
   }
 
   public T removeLast() {
     if (isEmpty()) {
       throw new RuntimeException("Empty list !");
     }
-    T data = tail.data;
-    ;
+    T toRemove = tail.data;
     tail = tail.prev;
     tail.next = null;
-    return data;
+    size--;
+    return toRemove;
   }
 
   public boolean isEmpty() {
@@ -124,7 +128,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new Iterator<T>() {
+    return new Iterator<>() {
       private Node<T> trav = head;
 
       @Override

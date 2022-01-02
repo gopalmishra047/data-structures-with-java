@@ -45,25 +45,55 @@ class DoublyLinkedListTest {
   }
 
   @Test
-  void addFirst() {}
+  void addFirst() {
+    list.addFirst(5);
+    assertThat(list.get(0)).isEqualTo(5);
+    assertThat(list.size()).isEqualTo(6);
+  }
 
   @Test
   void addLast() {}
 
   @Test
-  void peekFirst() {}
+  void peekFirst() {
+    assertThat(list.peekFirst()).isEqualTo(2);
+    list.clear();
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(list::peekFirst)
+        .withMessage("Empty list !");
+  }
 
   @Test
-  void peekLast() {}
+  void peekLast() {
+    assertThat(list.peekLast()).isEqualTo(4);
+    list.clear();
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(list::peekLast)
+        .withMessage("Empty list !");
+  }
 
   @Test
-  void removeFirst() {}
+  void removeFirst() {
+    assertThat(list.removeFirst()).isEqualTo(2);
+    assertThat(list.size()).isEqualTo(4);
+    list.clear();
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(list::removeFirst)
+        .withMessage("Empty list !");
+  }
 
   @Test
-  void removeLast() {}
+  void removeLast() {
+    assertThat(list.removeLast()).isEqualTo(4);
+    assertThat(list.size()).isEqualTo(4);
+  }
 
   @Test
-  void isEmpty() {}
+  void isEmpty() {
+    assertThat(list.isEmpty()).isFalse();
+    list.clear();
+    assertThat(list.isEmpty()).isTrue();
+  }
 
   @Test
   void iterator() {
