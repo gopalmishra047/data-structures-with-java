@@ -52,7 +52,17 @@ class DoublyLinkedListTest {
   }
 
   @Test
-  void addLast() {}
+  void addLast() {
+    list.addLast(20);
+    assertThat(list.peekLast()).isEqualTo(20);
+  }
+
+  @Test
+  void insertAt() {
+    list.insertAt(14, 4);
+    assertThat(list.get(4)).isEqualTo(14);
+    assertThat(list.size()).isEqualTo(6);
+  }
 
   @Test
   void peekFirst() {

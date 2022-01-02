@@ -2,7 +2,6 @@ package linkedlist;
 
 import java.util.Iterator;
 
-@SuppressWarnings("unchecked")
 public class DoublyLinkedList<T> implements Iterable<T> {
   private int size = 0;
   private Node<T> head = null;
@@ -46,15 +45,15 @@ public class DoublyLinkedList<T> implements Iterable<T> {
     addLast(element);
   }
 
-  public T get(int index) {
-    int searchIndex = 0;
+  public T get(int position) {
+    int searchPosition = 0;
     Node<T> trav = head;
     while (trav != null) {
-      if (index == searchIndex) {
+      if (position == searchPosition) {
         return trav.data;
       }
       trav = trav.next;
-      searchIndex++;
+      searchPosition++;
     }
     return null;
   }
@@ -84,6 +83,34 @@ public class DoublyLinkedList<T> implements Iterable<T> {
       tail = tail.next;
     }
     size++;
+  }
+
+  public void insertAt(T element, int position) {
+    if (position < 0 || position >= this.size) {
+      throw new RuntimeException("List contains only " + this.size + " elements !");
+    }
+    if (position == 0) {
+      addFirst(element);
+    } else {
+      Node<T> elementBeforePosition = getElementAt(position);
+      Node<T> newNode = new Node<>(element, elementBeforePosition, elementBeforePosition.next);
+      newNode.next.prev = newNode;
+      elementBeforePosition.next = newNode;
+    }
+    size++;
+  }
+
+  public Node<T> getElementAt(int position) {
+    int visitedPosition = 1;
+    Node<T> trav = head;
+    while (trav != null) {
+      if (visitedPosition == position) {
+        return trav;
+      }
+      trav = trav.next;
+      visitedPosition++;
+    }
+    return null;
   }
 
   public T peekFirst() {
@@ -123,7 +150,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   }
 
   public boolean isEmpty() {
-    return size == 0;
+    return this.size == 0;
   }
 
   @Override
