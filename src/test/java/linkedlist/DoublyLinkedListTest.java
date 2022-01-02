@@ -40,14 +40,14 @@ class DoublyLinkedListTest {
   void add() {
     assertThat(list.size()).isEqualTo(5);
     list.add(10);
-    assertThat(list.get(3)).isEqualTo(9);
+    assertThat(list.get(4)).isEqualTo(9);
     assertThat(list.size()).isEqualTo(6);
   }
 
   @Test
   void addFirst() {
     list.addFirst(5);
-    assertThat(list.get(0)).isEqualTo(5);
+    assertThat(list.get(1)).isEqualTo(5);
     assertThat(list.size()).isEqualTo(6);
   }
 
@@ -62,6 +62,13 @@ class DoublyLinkedListTest {
     list.insertAt(14, 4);
     assertThat(list.get(4)).isEqualTo(14);
     assertThat(list.size()).isEqualTo(6);
+  }
+
+  @Test
+  void deleteAt() {
+    list.deleteAt(3);
+    assertThat(list.get(3)).isEqualTo(9);
+    assertThat(list.size()).isEqualTo(4);
   }
 
   @Test
@@ -103,6 +110,12 @@ class DoublyLinkedListTest {
     assertThat(list.isEmpty()).isFalse();
     list.clear();
     assertThat(list.isEmpty()).isTrue();
+  }
+
+  @Test
+  void contains() {
+    assertThat(list.contains(3)).isTrue();
+    assertThat(list.contains(50)).isFalse();
   }
 
   @Test

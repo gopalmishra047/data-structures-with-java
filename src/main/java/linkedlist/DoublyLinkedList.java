@@ -46,7 +46,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   }
 
   public T get(int position) {
-    int searchPosition = 0;
+    int searchPosition = 1;
     Node<T> trav = head;
     while (trav != null) {
       if (position == searchPosition) {
@@ -86,29 +86,44 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   }
 
   public void insertAt(T element, int position) {
-    if (position < 0 || position >= this.size) {
+    if (position < 0 || position > this.size) {
       throw new RuntimeException("List contains only " + this.size + " elements !");
     }
     if (position == 0) {
       addFirst(element);
+    } else if (position == this.size) {
+      addLast(element);
     } else {
-      Node<T> elementBeforePosition = getElementAt(position);
-      Node<T> newNode = new Node<>(element, elementBeforePosition, elementBeforePosition.next);
+      Node<T> temp = head;
+      for (int i = 2; i < position; i++) {
+        temp = temp.next;
+      }
+      Node<T> newNode = new Node<>(element, temp, temp.next);
       newNode.next.prev = newNode;
-      elementBeforePosition.next = newNode;
+      temp.next = newNode;
     }
     size++;
   }
 
-  public Node<T> getElementAt(int position) {
-    int visitedPosition = 1;
+  public void deleteAt(int position) {
+    if (position < 1 || position > this.size) {
+      throw new RuntimeException("List contains only " + this.size + " elements !");
+    }
+    Node<T> nodeAtPosition = getNodeAt(position);
+    nodeAtPosition.prev.next = nodeAtPosition.next;
+    nodeAtPosition.next.prev = nodeAtPosition.prev;
+    size--;
+  }
+
+  public Node<T> getNodeAt(int position) {
+    int visitedNode = 1;
     Node<T> trav = head;
     while (trav != null) {
-      if (visitedPosition == position) {
+      if (visitedNode == position) {
         return trav;
       }
       trav = trav.next;
-      visitedPosition++;
+      visitedNode++;
     }
     return null;
   }
@@ -151,6 +166,15 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
   public boolean isEmpty() {
     return this.size == 0;
+  }
+
+  public boolean contains(T element) {
+    for (T next : this) {
+      if (element == next) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Override
