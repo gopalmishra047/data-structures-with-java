@@ -46,7 +46,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   }
 
   public T get(int position) {
-    int searchPosition = 1;
+    int searchPosition = 0;
     Node<T> trav = head;
     while (trav != null) {
       if (position == searchPosition) {
@@ -95,7 +95,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
       addLast(element);
     } else {
       Node<T> temp = head;
-      for (int i = 2; i < position; i++) {
+      for (int i = 1; i < position; i++) {
         temp = temp.next;
       }
       Node<T> newNode = new Node<>(element, temp, temp.next);
@@ -116,7 +116,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
   }
 
   public Node<T> getNodeAt(int position) {
-    int visitedNode = 1;
+    int visitedNode = 0;
     Node<T> trav = head;
     while (trav != null) {
       if (visitedNode == position) {
